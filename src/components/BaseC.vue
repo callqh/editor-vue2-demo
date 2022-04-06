@@ -6,8 +6,9 @@
     <div style="border: 1px solid #ccc">
       <!-- 工具栏 -->
       <Toolbar
+        :editor="editor"
         style="border-bottom: 1px solid #ccc"
-        :editorId="editorId"
+        v-bind:editorId="editorId"
         :defaultConfig="toolbarConfig"
         :mode="mode"
       />
@@ -15,20 +16,20 @@
       <!-- 编辑器 -->
       <Editor
         style="height: 500px"
-        :editorId="editorId"
         :defaultHtml="defaultHtml"
         :defaultConfig="editorConfig"
         :defaultContent="getDefaultContent"
         :mode="mode"
+        @onCreated="onCreated"
       />
     </div>
   </div>
 </template>
 <script>
-import Vue from 'vue';
-import '@wangeditor/editor/dist/css/style.css';
-import { Editor, Toolbar, getEditor, removeEditor } from '@wangeditor/editor-for-vue';
-import cloneDeep from 'lodash.clonedeep';
+import Vue from "vue";
+import "@wangeditor/editor/dist/css/style.css";
+import { Editor, Toolbar } from "@wangeditor/editor-for-vue";
+import cloneDeep from "lodash.clonedeep";
 
 export default Vue.extend({
   components: { Editor, Toolbar },
@@ -37,21 +38,21 @@ export default Vue.extend({
       //【特别注意】
       // 1. editorId Toolbar 和 Editor 的关联，要保持一致
       // 2. 多个编辑器时，每个的 editorId 要唯一
-      editorId: 'w-e-1',
-
+      editorId: "w-e-1",
+      editor: null,
       toolbarConfig: {
         /* 工具栏配置 */
       },
-      defaultHtml: '<h1>这是一个默认的内容</h1>',
+      defaultHtml: "<h1>这是一个默认的内容</h1>",
       defaultContent: [
-        { type: 'paragraph', children: [{ text: 'simple mode' }] },
-        { type: 'paragraph', children: [{ text: '简化 toolbar 和 hoverbar' }] },
+        { type: "paragraph", children: [{ text: "simple mode" }] },
+        { type: "paragraph", children: [{ text: "简化 toolbar 和 hoverbar" }] },
         {
-          type: 'pre',
+          type: "pre",
           children: [
             {
-              type: 'code',
-              language: 'java',
+              type: "code",
+              language: "java",
               children: [
                 {
                   text: "public static void main(String args[]){String name = ''; System.out.println(name);}",
@@ -62,14 +63,14 @@ export default Vue.extend({
         },
       ],
       editorConfig: {
-        placeholder: '请输入内容...',
+        placeholder: "请输入内容...",
         // 其他编辑器配置
         // 菜单配置
         MENU_CONF: {
           uploadImage: {
-            server: 'http://106.12.198.214:3000/api/upload-img',
+            server: "http://106.12.198.214:3000/api/upload-img",
             // form-data fieldName ，默认值 'wangeditor-uploaded-file'
-            fieldName: 'your-custom-name',
+            fieldName: "your-custom-name",
 
             // 单个文件的最大体积限制，默认为 2M
             maxFileSize: 10 * 1024 * 1024, // 1M
@@ -78,15 +79,15 @@ export default Vue.extend({
             maxNumberOfFiles: 10,
 
             // 选择文件时的类型限制，默认为 ['image/*'] 。如不想限制，则设置为 []
-            allowedFileTypes: ['image/*'],
+            allowedFileTypes: ["image/*"],
 
             // 将 meta 拼接到 url 参数中，默认 false
             metaWithUrl: false,
 
             // 自定义增加 http  header
             headers: {
-              Accept: 'text/x-json',
-              otherKey: 'xxx',
+              Accept: "text/x-json",
+              otherKey: "xxx",
             },
 
             // 跨域是否传递 cookie ，默认为 false
@@ -98,12 +99,12 @@ export default Vue.extend({
             // 小于该值就插入 base64 格式（而不上传），默认为 0
             base64LimitSize: 5 * 1024, // 5kb
             meta: {
-              token: 'xxx',
+              token: "xxx",
               a: 100,
             },
             // 自定义插入图片
             customInsert(res, insertFn) {
-              console.log(res, '===');
+              console.log(res, "===");
               // res 即服务端的返回结果
               res = res.data;
               // 从 res 中找到 url alt href ，然后插图图片
@@ -122,7 +123,7 @@ export default Vue.extend({
             // 上传进度的回调函数
             onProgress(progress) {
               // progress 是 0-100 的数字
-              console.log('progress', progress);
+              console.log("progress", progress);
             },
             // 单个文件上传成功之后
             onSuccess(file, res) {
@@ -139,7 +140,7 @@ export default Vue.extend({
           },
         },
       },
-      mode: 'default', // or 'simple'
+      mode: "default", // or 'simple'
       curContent: [],
     };
   },
@@ -153,32 +154,33 @@ export default Vue.extend({
 
   methods: {
     onCreated(editor) {
-      console.log('onCreated', editor);
+      this.editor = Object.seal(editor);
+      console.log("onCreated", editor);
     },
     onChange(editor) {
-      console.log('onChange', editor.children);
+      console.log("onChange", editor.children);
       this.curContent = editor.children;
     },
     onDestroyed(editor) {
-      console.log('onDestroyed', editor);
+      console.log("onDestroyed", editor);
     },
     onMaxLength(editor) {
-      console.log('onMaxLength', editor);
+      console.log("onMaxLength", editor);
     },
     onFocus(editor) {
-      console.log('onFocus', editor);
+      console.log("onFocus", editor);
     },
     onBlur(editor) {
-      console.log('onBlur', editor);
+      console.log("onBlur", editor);
     },
     customAlert(info, type) {
       window.alert(`customAlert in Vue demo\n${type}:\n${info}`);
     },
     customPaste(editor, event, callback) {
-      console.log('ClipboardEvent 粘贴事件对象', event);
+      console.log("ClipboardEvent 粘贴事件对象", event);
 
       // 自定义插入内容
-      editor.insertText('xxx');
+      editor.insertText("xxx");
 
       // 返回值（注意，vue 事件的返回值，不能用 return）
       // callback(false); // 返回 false ，阻止默认粘贴行为
@@ -187,23 +189,22 @@ export default Vue.extend({
 
     insertText() {
       // 获取 editor 实例，即可执行 editor API
-      const editor = getEditor(this.editorId);
+      const editor = this.editor;
       if (editor == null) return;
       if (editor.selection == null) return;
 
       // 在选区插入一段文字
-      editor.insertText('一段文字');
+      editor.insertText("一段文字");
     },
   },
 
   // 及时销毁 editor
   beforeDestroy() {
-    const editor = getEditor(this.editorId);
+    const editor = this.editor;
     if (editor == null) return;
 
     // 销毁，并移除 editor
     editor.destroy();
-    removeEditor(this.editorId);
   },
 });
 </script>

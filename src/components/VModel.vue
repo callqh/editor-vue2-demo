@@ -4,51 +4,54 @@
     <div style="border: 1px solid #ccc; margin-top: 10px">
       <Toolbar
         style="border-bottom: 1px solid #ccc"
-        :editorId="editorId"
+        :editor="editor"
         :defaultConfig="toolbarConfig"
       />
       <Editor
         style="height: 500px"
-        :editorId="editorId"
         :defaultConfig="editorConfig"
         v-model="valueHtml"
+        @onCreated="onCreated"
       />
     </div>
   </div>
 </template>
 <script>
-import Vue from 'vue';
-import '@wangeditor/editor/dist/css/style.css';
-import { Editor, Toolbar, getEditor, removeEditor } from '@wangeditor/editor-for-vue';
+import Vue from "vue";
+import "@wangeditor/editor/dist/css/style.css";
+import { Editor, Toolbar } from "@wangeditor/editor-for-vue";
 
 export default Vue.extend({
   components: { Editor, Toolbar },
   data() {
     return {
-      //【注意】1. editorId 用于 Toolbar 和 Editor 的关联，保持一直。2. 多个编辑器时，每个的 editorId 要唯一
-      editorId: `w-e-${Date.now().toString().slice(-5)}`,
+      editor: null,
       toolbarConfig: {
         // 工具栏配置
       },
       editorConfig: {
-        placeholder: '请输入内容...',
+        placeholder: "请输入内容...",
       },
-      valueHtml: '<p>hello</p>',
+      valueHtml: "<p>hello</p>",
     };
   },
   mounted() {
     setTimeout(() => {
-      this.valueHtml = '<p>hello world</p>';
+      this.valueHtml = "<p>hello world</p>";
     }, 1500);
   },
-  methods: {},
+  methods: {
+    onCreated(editor) {
+      this.editor = editor;
+    },
+  },
+
   // 及时销毁 editor
   beforeDestroy() {
-    const editor = getEditor(this.editorId);
+    const editor = this.editor;
     if (editor == null) return;
     // 销毁，并移除 editor
     editor.destroy();
-    removeEditor(this.editorId);
   },
 });
 </script>
