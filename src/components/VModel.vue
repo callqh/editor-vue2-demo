@@ -50,6 +50,7 @@ export default Vue.extend({
   beforeDestroy() {
     const editor = this.editor;
     if (editor == null) return;
+    w;
     // 销毁，并移除 editor
     editor.destroy();
   },

@@ -29,7 +29,6 @@
 import Vue from "vue";
 import "@wangeditor/editor/dist/css/style.css";
 import { Editor, Toolbar } from "@wangeditor/editor-for-vue";
-import cloneDeep from "lodash.clonedeep";
 
 export default Vue.extend({
   components: { Editor, Toolbar },
@@ -143,13 +142,6 @@ export default Vue.extend({
       mode: "default", // or 'simple'
       curContent: [],
     };
-  },
-
-  computed: {
-    // 注意，深度拷贝 content ，否则会报错
-    getDefaultContent() {
-      return cloneDeep(this.defaultContent);
-    },
   },
 
   methods: {
