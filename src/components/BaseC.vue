@@ -21,6 +21,7 @@
         :defaultContent="defaultContent"
         :mode="mode"
         @onCreated="onCreated"
+        @onChange="onChange"
       />
     </div>
   </div>
@@ -44,8 +45,31 @@ export default Vue.extend({
       },
       defaultHtml: "<h1>这是一个默认的内容</h1>",
       defaultContent: [
-        { type: "paragraph", children: [{ text: "simple mode" }] },
-        { type: "paragraph", children: [{ text: "简化 toolbar 和 hoverbar" }] },
+        {
+          type: "paragraph",
+          children: [
+            {
+              type: "image",
+              src: "https://www.keaidian.com/uploads/allimg/190424/24110307_7.jpg",
+              href: "",
+              alt: "",
+              style: {},
+              children: [
+                {
+                  text: "",
+                },
+              ],
+            },
+          ],
+        },
+        {
+          type: "paragraph",
+          children: [
+            {
+              text: "简化 toolbar 和 hoverbar",
+            },
+          ],
+        },
         {
           type: "pre",
           children: [
