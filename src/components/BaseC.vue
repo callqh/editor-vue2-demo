@@ -18,7 +18,7 @@
         style="height: 500px"
         :defaultHtml="defaultHtml"
         :defaultConfig="editorConfig"
-        :defaultContent="getDefaultContent"
+        :defaultContent="defaultContent"
         :mode="mode"
         @onCreated="onCreated"
       />
@@ -62,6 +62,7 @@ export default Vue.extend({
         },
       ],
       editorConfig: {
+        readOnly: true,
         placeholder: "请输入内容...",
         // 其他编辑器配置
         // 菜单配置
@@ -147,7 +148,9 @@ export default Vue.extend({
   methods: {
     onCreated(editor) {
       this.editor = Object.seal(editor);
-      console.log("onCreated", editor);
+      // editor.disable();
+      console.log("disable ?", editor.isDisabled());
+      console.log("onCreated ", editor);
     },
     onChange(editor) {
       console.log("onChange", editor.children);
