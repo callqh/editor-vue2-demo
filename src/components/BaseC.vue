@@ -5,13 +5,13 @@
     </div>
     <div style="border: 1px solid #ccc">
       <!-- 工具栏 -->
-      <Toolbar
+      <!-- <Toolbar
         :editor="editor"
         style="border-bottom: 1px solid #ccc"
         v-bind:editorId="editorId"
         :defaultConfig="toolbarConfig"
         :mode="mode"
-      />
+      /> -->
 
       <!-- 编辑器 -->
       <Editor
@@ -32,7 +32,10 @@ import "@wangeditor/editor/dist/css/style.css";
 import { Editor, Toolbar } from "@wangeditor/editor-for-vue";
 
 export default Vue.extend({
-  components: { Editor, Toolbar },
+  components: { 
+    Editor,
+  //  Toolbar 
+   },
   data() {
     return {
       //【特别注意】
@@ -53,7 +56,7 @@ export default Vue.extend({
               src: "https://www.keaidian.com/uploads/allimg/190424/24110307_7.jpg",
               href: "",
               alt: "",
-              style: {},
+              style: { width:'100px'},
               children: [
                 {
                   text: "",
@@ -90,79 +93,79 @@ export default Vue.extend({
         placeholder: "请输入内容...",
         // 其他编辑器配置
         // 菜单配置
-        MENU_CONF: {
-          uploadImage: {
-            server: "http://106.12.198.214:3000/api/upload-img",
-            // form-data fieldName ，默认值 'wangeditor-uploaded-file'
-            fieldName: "your-custom-name",
+        // MENU_CONF: {
+        //   uploadImage: {
+        //     server: "http://106.12.198.214:3000/api/upload-img",
+        //     // form-data fieldName ，默认值 'wangeditor-uploaded-file'
+        //     fieldName: "your-custom-name",
 
-            // 单个文件的最大体积限制，默认为 2M
-            maxFileSize: 10 * 1024 * 1024, // 1M
+        //     // 单个文件的最大体积限制，默认为 2M
+        //     maxFileSize: 10 * 1024 * 1024, // 1M
 
-            // 最多可上传几个文件，默认为 100
-            maxNumberOfFiles: 10,
+        //     // 最多可上传几个文件，默认为 100
+        //     maxNumberOfFiles: 10,
 
-            // 选择文件时的类型限制，默认为 ['image/*'] 。如不想限制，则设置为 []
-            allowedFileTypes: ["image/*"],
+        //     // 选择文件时的类型限制，默认为 ['image/*'] 。如不想限制，则设置为 []
+        //     allowedFileTypes: ["image/*"],
 
-            // 将 meta 拼接到 url 参数中，默认 false
-            metaWithUrl: false,
+        //     // 将 meta 拼接到 url 参数中，默认 false
+        //     metaWithUrl: false,
 
-            // 自定义增加 http  header
-            headers: {
-              Accept: "text/x-json",
-              otherKey: "xxx",
-            },
+        //     // 自定义增加 http  header
+        //     headers: {
+        //       Accept: "text/x-json",
+        //       otherKey: "xxx",
+        //     },
 
-            // 跨域是否传递 cookie ，默认为 false
-            withCredentials: false,
+        //     // 跨域是否传递 cookie ，默认为 false
+        //     withCredentials: false,
 
-            // 超时时间，默认为 10 秒
-            timeout: 5 * 1000, // 5 秒
+        //     // 超时时间，默认为 10 秒
+        //     timeout: 5 * 1000, // 5 秒
 
-            // 小于该值就插入 base64 格式（而不上传），默认为 0
-            base64LimitSize: 5 * 1024, // 5kb
-            meta: {
-              token: "xxx",
-              a: 100,
-            },
-            // 自定义插入图片
-            customInsert(res, insertFn) {
-              console.log(res, "===");
-              // res 即服务端的返回结果
-              res = res.data;
-              // 从 res 中找到 url alt href ，然后插图图片
-              insertFn(res.url, res.alt, res.href);
-            },
-            // 上传之前触发
-            onBeforeUpload(files) {
-              // files 即选中的文件列表
+        //     // 小于该值就插入 base64 格式（而不上传），默认为 0
+        //     base64LimitSize: 5 * 1024, // 5kb
+        //     meta: {
+        //       token: "xxx",
+        //       a: 100,
+        //     },
+        //     // 自定义插入图片
+        //     customInsert(res, insertFn) {
+        //       console.log(res, "===");
+        //       // res 即服务端的返回结果
+        //       res = res.data;
+        //       // 从 res 中找到 url alt href ，然后插图图片
+        //       insertFn(res.url, res.alt, res.href);
+        //     },
+        //     // 上传之前触发
+        //     onBeforeUpload(files) {
+        //       // files 即选中的文件列表
 
-              return files;
+        //       return files;
 
-              // 返回值可选择：
-              // 1. 返回一个数组（files 或者 files 的一部分），则将上传返回结果中的文件
-              // 2. 返回 false ，则终止上传
-            },
-            // 上传进度的回调函数
-            onProgress(progress) {
-              // progress 是 0-100 的数字
-              console.log("progress", progress);
-            },
-            // 单个文件上传成功之后
-            onSuccess(file, res) {
-              console.log(`${file.name} 上传成功`, res);
-            },
-            // 单个文件上传失败
-            onFailed(file, res) {
-              console.log(`${file.name} 上传失败`, res);
-            },
-            // 上传错误，或者触发 timeout 超时
-            onError(file, err, res) {
-              console.log(`${file.name} 上传出错`, err, res);
-            },
-          },
-        },
+        //       // 返回值可选择：
+        //       // 1. 返回一个数组（files 或者 files 的一部分），则将上传返回结果中的文件
+        //       // 2. 返回 false ，则终止上传
+        //     },
+        //     // 上传进度的回调函数
+        //     onProgress(progress) {
+        //       // progress 是 0-100 的数字
+        //       console.log("progress", progress);
+        //     },
+        //     // 单个文件上传成功之后
+        //     onSuccess(file, res) {
+        //       console.log(`${file.name} 上传成功`, res);
+        //     },
+        //     // 单个文件上传失败
+        //     onFailed(file, res) {
+        //       console.log(`${file.name} 上传失败`, res);
+        //     },
+        //     // 上传错误，或者触发 timeout 超时
+        //     onError(file, err, res) {
+        //       console.log(`${file.name} 上传出错`, err, res);
+        //     },
+        //   },
+        // },
       },
       mode: "default", // or 'simple'
       curContent: [],
@@ -172,8 +175,8 @@ export default Vue.extend({
   methods: {
     onCreated(editor) {
       this.editor = Object.seal(editor);
-      // editor.disable();
       console.log("disable ?", editor.isDisabled());
+      console.log("config", editor.getConfig());
       console.log("onCreated ", editor);
     },
     onChange(editor) {
