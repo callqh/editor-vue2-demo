@@ -4,7 +4,7 @@ specifiers:
   '@vue/cli-plugin-babel': ~4.5.0
   '@vue/cli-service': ~4.5.0
   '@wangeditor/editor': 5.0.1
-  '@wangeditor/editor-for-vue': 1.0.0
+  '@wangeditor/editor-for-vue': 1.0.1
   babel-eslint: ^10.1.0
   core-js: ^3.6.5
   eslint: ^8.12.0
@@ -14,7 +14,7 @@ specifiers:
 
 dependencies:
   '@wangeditor/editor': 5.0.1
-  '@wangeditor/editor-for-vue': 1.0.0_7235fee7308e05ae0da0636f41ff5fd1
+  '@wangeditor/editor-for-vue': 1.0.1_7235fee7308e05ae0da0636f41ff5fd1
   core-js: 3.21.1
   vue: 2.6.14
 
@@ -1938,8 +1938,8 @@ packages:
       snabbdom: 3.4.0
     dev: false
 
-  /@wangeditor/editor-for-vue/1.0.0_7235fee7308e05ae0da0636f41ff5fd1:
-    resolution: {integrity: sha512-6pldABJ7g0/tL0jnQKZUub/cc92s0ErnRMAXKmrANudKpzk4CSBnol4YPWLrXJ/UFPrzSFNAEX8nN4TM6lGiJQ==}
+  /@wangeditor/editor-for-vue/1.0.1_7235fee7308e05ae0da0636f41ff5fd1:
+    resolution: {integrity: sha512-Dpq7PUjg774OE8Ga+uXG/P2+CCBUkA2Dh+Vo0m/ViyktNu4cedF7KSAAR/8LSRfFeLcLYRIJ/zSj6ylwlSALYA==}
     peerDependencies:
       '@wangeditor/editor': '>=5.0.0'
       vue: ^2.6.14

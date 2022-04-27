@@ -31,6 +31,7 @@ export default Vue.extend({
       },
       editorConfig: {
         placeholder: "请输入内容...",
+        readOnly:true
       },
       valueHtml: "<p>hello</p>",
     };
